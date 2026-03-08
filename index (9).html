@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart CV Generator</title>
+
+<style>
+
+body{
+
+font-family:Arial, sans-serif;
+
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+
+min-height:100vh;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+margin:0;
+
+}
+
+.container{
+
+background:white;
+
+padding:30px;
+
+border-radius:12px;
+
+width:420px;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:20px;
+
+}
+
+input,textarea,select{
+
+width:100%;
+
+padding:10px;
+
+margin:8px 0;
+
+border-radius:6px;
+
+border:1px solid #ccc;
+
+font-size:14px;
+
+}
+
+button{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:6px;
+
+background:#4facfe;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+margin-top:10px;
+
+}
+
+button:hover{
+
+opacity:0.9;
+
+}
+
+.result{
+
+margin-top:20px;
+
+padding:15px;
+
+background:#f3f3f3;
+
+border-radius:6px;
+
+}
+
+.tools{
+
+display:flex;
+
+gap:10px;
+
+margin-top:10px;
+
+}
+
+.tools button{
+
+flex:1;
+
+background:#333;
+
+}
+
+.print{
+
+background:#4caf50;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Smart CV Generator</h1>
+
+<select id="language">
+
+<option value="en">English</option>
+
+<option value="es">Español</option>
+
+</select>
+
+<input id="name" placeholder="Full name">
+
+<input id="job" placeholder="Profession">
+
+<input id="email" placeholder="Email">
+
+<textarea id="skills" placeholder="Skills (example: HTML, Design, Marketing)"></textarea>
+
+<textarea id="experience" placeholder="Work experience"></textarea>
+
+<button onclick="generateCV()">Generate CV</button>
+
+<div class="result" id="result">Your CV will appear here</div>
+
+<div class="tools">
+
+<button onclick="copyCV()">Copy</button>
+
+<button class="print" onclick="printCV()">Save PDF</button>
+
+</div>
+
+</div>
+
+<script>
+
+function generateCV(){
+
+let name=document.getElementById("name").value;
+
+let job=document.getElementById("job").value;
+
+let email=document.getElementById("email").value;
+
+let skills=document.getElementById("skills").value;
+
+let exp=document.getElementById("experience").value;
+
+let lang=document.getElementById("language").value;
+
+let cv="";
+
+if(lang==="en"){
+
+cv=`
+
+<h2>${name}</h2>
+
+<p><b>Profession:</b> ${job}</p>
+
+<p><b>Email:</b> ${email}</p>
+
+<h3>Skills</h3>
+
+<p>${skills}</p>
+
+<h3>Experience</h3>
+
+<p>${exp}</p>
+
+`;
+
+}
+
+if(lang==="es"){
+
+cv=`
+
+<h2>${name}</h2>
+
+<p><b>Profesión:</b> ${job}</p>
+
+<p><b>Email:</b> ${email}</p>
+
+<h3>Habilidades</h3>
+
+<p>${skills}</p>
+
+<h3>Experiencia</h3>
+
+<p>${exp}</p>
+
+`;
+
+}
+
+document.getElementById("result").innerHTML=cv;
+
+}
+
+function copyCV(){
+
+let text=document.getElementById("result").innerText;
+
+navigator.clipboard.writeText(text);
+
+alert("Copied");
+
+}
+
+function printCV(){
+
+let content=document.getElementById("result").innerHTML;
+
+let win=window.open("");
+
+win.document.write(content);
+
+win.print();
+
+}
+
+</script>
+
+</body>
+
+</html>
